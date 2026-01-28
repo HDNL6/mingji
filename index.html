@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoldKylinBig.bmp 下载</title>
+    <style>
+        body { 
+            font-family: 'Microsoft YaHei', Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            background: #f5f5f5;
+        }
+        .download-box { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .download-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin: 10px;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .download-btn:hover {
+            background: #218838;
+        }
+        .download-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="download-box">
+        <h1>🖼️ 图片下载中心</h1>
+        
+        <div class="info-box">
+            <strong>文件名：</strong> GoldKylinBig.bmp<br>
+            <strong>文件类型：</strong> BMP位图<br>
+            <strong>来源：</strong> GitHub + jsDelivr CDN
+        </div>
+
+        <!-- 直接下载链接（最推荐） -->
+        <h3>方式一：直接下载（最快）</h3>
+        <a href="https://cdn.jsdelivr.net/gh/lixiang9685-del/mingji@730e8a537e29a2742d1b0c5eb69f237263dd08c6/GoldKylinBig.bmp" 
+           download="GoldKylinBig.bmp"
+           class="download-btn">
+           💾 立即下载 BMP 图片
+        </a>
+
+        <div class="warning-box">
+            💡 <strong>提示：</strong>如果点击后自动打开图片而不是下载，请：
+            <ol>
+                <li>右键点击上面的绿色按钮</li>
+                <li>选择"链接另存为"或"存储链接为"</li>
+                <li>选择保存位置即可</li>
+            </ol>
+        </div>
+
+        <!-- 备用下载方式（处理跨域） -->
+        <h3>方式二：备用下载（自动转换）</h3>
+        <button onclick="downloadImage()" class="download-btn" style="background: #007bff;">
+           ⚡ 强制下载模式
+        </button>
+
+        <p style="color: #666; margin-top: 20px; font-size: 14px;">
+            备用下载会将图片转换为浏览器可识别的格式，确保下载成功
+        </p>
+    </div>
+
+    <script>
+        // 备用下载函数（处理跨域和格式问题）
+        function downloadImage() {
+            const url = 'https://cdn.jsdelivr.net/gh/lixiang9685-del/mingji@730e8a537e29a2742d1b0c5eb69f237263dd08c6/GoldKylinBig.bmp';
+            const filename = 'GoldKylinBig.bmp';
+            
+            const btn = event.target;
+            btn.textContent = '准备下载...';
+            btn.disabled = true;
+            
+            // 方法一：先尝试直接下载
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // 方法二：如果3秒后没下载，使用fetch
+            setTimeout(() => {
+                fetch(url)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const urlObj = URL.createObjectURL(blob);
+                        const link2 = document.createElement('a');
+                        link2.href = urlObj;
+                        link2.download = filename;
+                        document.body.appendChild(link2);
+                        link2.click();
+                        
+                        setTimeout(() => {
+                            document.body.removeChild(link2);
+                            URL.revokeObjectURL(urlObj);
+                            btn.textContent = '⚡ 强制下载模式';
+                            btn.disabled = false;
+                        }, 100);
+                    })
+                    .catch(err => {
+                        alert('下载失败，请使用方式一手动右键另存为\n错误信息：' + err.message);
+                        btn.textContent = '⚡ 强制下载模式';
+                        btn.disabled = false;
+                    });
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
