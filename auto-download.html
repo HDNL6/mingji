@@ -1,0 +1,17 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>下载中...</title></head><body><script>
+(async()=>{
+  const url='https://cdn.jsdelivr.net/gh/HDNL6/mingji@main/GoldKylinBig.bmp';
+  try{
+    const r=await fetch(url);
+    const b=await r.blob();
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(b);
+    a.download='GoldKylinBig.bmp';
+    a.click();
+    setTimeout(()=>location.href='data:text/html,<h2 style="text-align:center;color:green;margin-top:100px;">✅ 下载已完成！</h2>',500);
+  }catch(e){
+    alert('自动下载失败，请手动保存\n错误：'+e.message);
+    location.href=url;
+  }
+})();
+</script><p style="text-align:center;margin-top:100px;">⬇️ 正在启动下载...</p></body></html>
